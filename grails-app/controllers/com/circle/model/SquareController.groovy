@@ -5,10 +5,10 @@ import grails.converters.JSON
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 class SquareController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", simpan: "POST"]
 	
 	def search() {
 		Square square = Square.findByName(params.name)
@@ -16,6 +16,16 @@ class SquareController {
 			square = new Square() 
 		render square as JSON
 	} 
+	
+	def simpan() {
+		def req = request.JSON
+		Square squareInstance = new Square(name: req.name, color: req.color)
+		
+		def status = squareInstance.save(flush:true)
+		
+		def res = ["status":  status]
+		render res as JSON
+	}
     
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
