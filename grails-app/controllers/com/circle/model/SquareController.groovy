@@ -11,8 +11,10 @@ class SquareController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def search() {
-		Square s = Square.findByName(params.name)
-		render s as JSON
+		Square square = Square.findByName(params.name)
+		if (square == null)
+			square = new Square() 
+		render square as JSON
 	} 
     
     def index(Integer max) {
