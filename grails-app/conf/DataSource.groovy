@@ -21,7 +21,7 @@ environments {
             driverClassName = "com.mysql.jdbc.Driver"   
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
             username = "root"
-            password = ""
+            password = "root"
 
             dbCreate = "update"
             url = "jdbc:mysql://127.0.0.1:3306/circle"
